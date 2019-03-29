@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -10,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  images: [{type: Schema.Types.ObjectId, ref: 'Image'}],
   token: String
 }, {
   timestamps: true,
