@@ -1,22 +1,12 @@
 const mongoose = require('mongoose')
 
 const imageSchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
   url: {
     type: String,
-    required: true
-  },
-  date_uploaded: {
-    type: Date,
-    default: Date.now,
-    required: true
-  },
-  date_modified: {
-    type: Date,
-    default: Date.now,
     required: true
   },
   tag: String,
