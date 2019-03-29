@@ -94,8 +94,11 @@ router.patch('/images/:id', requireToken, removeBlanks, (req, res, next) => {
       // pass the result of Mongoose's `.update` to the next `.then`
       return image.update(req.body.image)
     })
-    // if that succeeded, return 204 and no JSON
-    .then(() => res.sendStatus(204))
+    // if that succeeded, return 201 and the object as JSON
+    .then(() => Image.findById(req.params.id))
+    .then(image => {
+      res.status(201).json({ image: image.toObject() })
+    })
     // if an error occurs, pass it to the handler
     .catch(next)
 })
