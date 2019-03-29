@@ -64,31 +64,16 @@ router.get('/images/:id', requireToken, (req, res, next) => {
 // CREATE
 // POST /images
 router.post('/images', requireToken, upload.single('upload-file'), (req, res, next) => {
-  // set owner of new image to be current user
-  req.body.image.owner = req.user.id
-
-  console.log('========================================================================')
-  console.log(req.body)
-  console.log('========================================================================')
   promiseS3Upload(req.file)
     .then(awsResponse => Image.create({
-      name: req.body.name,
+      title: req.body.title,
       url: awsResponse.Location,
-      tag: req.body.tag
+      tag: req.body.tag,
+      owner: req.user.id
     }))
     .then(image => {
       res.status(201).json({ image: image.toObject() })
     })
-    .catch(next)
-
-  Image.create(req.body.image)
-    // respond to succesful `create` with status 201 and JSON of new "image"
-    .then(image => {
-      res.status(201).json({ image: image.toObject() })
-    })
-    // if an error occurs, pass it off to our error handler
-    // the error handler needs the error message and the `res` object so that it
-    // can send an error message back to the client
     .catch(next)
 })
 
