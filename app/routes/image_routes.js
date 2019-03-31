@@ -36,14 +36,14 @@ const router = express.Router()
 // INDEX
 // GET /images
 router.get('/images', requireToken, (req, res, next) => {
-  Image.find()
+  Image.find().populate('owner')
     .then(images => {
       // `images` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
       return images.map(image => {
         const imageObj = image.toObject()
-        if (imageObj.owner == req.user.id) { // eslint-disable-line eqeqeq
+        if (imageObj.owner._id == req.user.id) { // eslint-disable-line eqeqeq
           imageObj.editable = true
         } else {
           imageObj.editable = false
@@ -61,11 +61,11 @@ router.get('/images', requireToken, (req, res, next) => {
 // GET /images/5a7db6c74d55bc51bdf39793
 router.get('/images/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
-  Image.findById(req.params.id)
+  Image.findById(req.params.id).populate('owner')
     .then(handle404)
     .then(image => {
       const imageObj = image.toObject()
-      if (imageObj.owner == req.user.id) { // eslint-disable-line eqeqeq
+      if (imageObj.owner._id == req.user.id) { // eslint-disable-line eqeqeq
         imageObj.editable = true
       } else {
         imageObj.editable = false
