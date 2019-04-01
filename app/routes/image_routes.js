@@ -36,12 +36,20 @@ const router = express.Router()
 // INDEX
 // GET /images
 router.get('/images', requireToken, (req, res, next) => {
-  Image.find()
+  Image.find().populate('owner')
     .then(images => {
       // `images` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return images.map(image => image.toObject())
+      return images.map(image => {
+        const imageObj = image.toObject()
+        if (imageObj.owner._id == req.user.id) { // eslint-disable-line eqeqeq
+          imageObj.editable = true
+        } else {
+          imageObj.editable = false
+        }
+        return imageObj
+      })
     })
     // respond with status 200 and JSON of the images
     .then(images => res.status(200).json({ images: images }))
@@ -53,10 +61,19 @@ router.get('/images', requireToken, (req, res, next) => {
 // GET /images/5a7db6c74d55bc51bdf39793
 router.get('/images/:id', requireToken, (req, res, next) => {
   // req.params.id will be set based on the `:id` in the route
-  Image.findById(req.params.id)
+  Image.findById(req.params.id).populate('owner')
     .then(handle404)
+    .then(image => {
+      const imageObj = image.toObject()
+      if (imageObj.owner._id == req.user.id) { // eslint-disable-line eqeqeq
+        imageObj.editable = true
+      } else {
+        imageObj.editable = false
+      }
+      return imageObj
+    })
     // if `findById` is succesful, respond with 200 and "image" JSON
-    .then(image => res.status(200).json({ image: image.toObject() }))
+    .then(imageObj => res.status(200).json({ image: imageObj }))
     // if an error occurs, pass it to the handler
     .catch(next)
 })
@@ -72,7 +89,12 @@ router.post('/images', requireToken, upload.single('upload-file'), (req, res, ne
       owner: req.user.id
     }))
     .then(image => {
-      res.status(201).json({ image: image.toObject() })
+      const imageObj = image.toObject()
+      imageObj.editable = true
+      return imageObj
+    })
+    .then(imageObj => {
+      res.status(201).json({ image: imageObj })
     })
     .catch(next)
 })
@@ -97,9 +119,14 @@ router.patch('/images/:id', requireToken, removeBlanks, (req, res, next) => {
     // if that succeeded, return 201 and the object as JSON
     .then(() => Image.findById(req.params.id))
     .then(image => {
-      res.status(201).json({ image: image.toObject() })
+      const imageObj = image.toObject()
+      imageObj.editable = true
+      return imageObj
     })
-    // if an error occurs, pass it to the handler
+    .then(imageObj => {
+      res.status(201).json({ image: imageObj })
+      // if an error occurs, pass it to the handler
+    })
     .catch(next)
 })
 
