@@ -126,8 +126,8 @@ router.patch('/images/:id', requireToken, removeBlanks, (req, res, next) => {
     .then(imageObj => {
       res.status(201).json({ image: imageObj })
       // if an error occurs, pass it to the handler
-        .catch(next)
     })
+    .catch(next)
 })
 
 // DESTROY
