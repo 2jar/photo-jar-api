@@ -4,13 +4,13 @@
 
 Welcome to Photo Jar! Use this SPA to store and view images to and from the AWS S3 cloud. This app was developed by the Github organization 2JAR, a General Assembly Software Engineering Immersive team in Boston, MA.
 
-2JAR Development Team:
+**2JAR Development Team:**
 + Jesse Kasumba: (https://github.com/juliojesse25)
 + Jonathan Lee Marcus: (https://github.com/zzyyfff)
 + Alessandra Sangurima: (https://github.com/asangurima)
 + Rob Guempel: (https://github.com/rogu2)
 
-Our team was presented the challenge to create a full-stack app for authenticated users to upload images, modify image titles and tags, and delete their own images. This app is intended for a friendly community of photosharing enthusiasts, and under this principle all users can see all photos, however, they can only modify and delete images they own themselves.
+The team was presented the challenge to create a full-stack app for authenticated users to upload images, modify image titles and tags, and delete their own images. This app is intended for a friendly community of photosharing enthusiasts, and under this principle all users can see all photos, however, they can only modify and delete images they own themselves.
 
 This project is born out of the Software Engineering Immersive course at General Assembly Boston (formerly the WDI, Web Development Immersive) and is the client side of our first full-stack team project.
 
