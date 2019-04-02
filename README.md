@@ -29,6 +29,9 @@ Server Side
 + Node JS
 + Mongoose
 + MongoDB
++ Passport
++ Body-Parser
++ Multer
 
 Client Side
 + HTML
@@ -36,6 +39,8 @@ Client Side
 + Javascript + jQuery + AJAX
 + Handlebars
 + Bootstrap
++ EXIF-JS
++ Google Maps API
 
 ## Getting involved
 Interested in playing with the code or contributing? Read on.
@@ -120,7 +125,6 @@ Link: https://imgur.com/kVIVsjR
 ## Unsolved Problems & Future Direction
 - Accessibility standardization for form fields
 - Allow users to add tags to images which they do not own.
-- Add photo location using Exif and Google API.
 - Allow users to sort by date.
 - Auto sign-in on sign-up.
 - Social Sharing
@@ -132,4 +136,4 @@ All content is licensed under a CC­BY­NC­SA 4.0 license.
 All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact asangurima@gmail.com, jonathan.marcus@gmail.com, juliojesse25@gmail.com, and rguempel@gmail.com.
 
 ## Acknowledgments
-Special thanks to Jennifer Meade, Erica Salling, Ben Jenkins, Toni Langley, Jordan Allain, Caleb Pearce, Naida Rosenberger, GA WDI-30, and everyone at General Assembly Boston.
+Special thanks to Jennifer Meade, Erica Salling, Ben Jenkins, Toni Langley, Jordan Allain, Caleb Pearce, Danny Kirschner, Naida Rosenberger, GA WDI-30, and everyone at General Assembly Boston.
